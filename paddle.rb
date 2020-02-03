@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './graphic_object'
 require './ball'
 

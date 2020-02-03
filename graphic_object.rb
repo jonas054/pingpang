@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Base class for movable objects.
 class GraphicObject
   def initialize(score)

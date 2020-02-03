@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'gosu'
 require './ball'
 require './paddle'
@@ -13,7 +15,7 @@ require './sound'
 class PongWindow < Gosu::Window
   def initialize
     super(1500, 800, fullscreen: false)
-    @left_to_serve = rand(2) > 0
+    @left_to_serve = rand(2).positive?
     @score = Score.new(self)
     @ball = Ball.new(@score)
     @left_paddle = Paddle.new(@score)
@@ -66,7 +68,7 @@ class PongWindow < Gosu::Window
 
   def handle_ball
     @ball.move
-    if @ball.y < 0
+    if @ball.y.negative?
       @ball.bounce_off_top
       @sound.bounce
     elsif @ball.y > height - Ball::HEIGHT

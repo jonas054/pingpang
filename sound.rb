@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Player for the sounds.
 class Sound
   def initialize

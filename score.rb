@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Keeping the scores and displaying them.
 class Score
   def initialize(window)
