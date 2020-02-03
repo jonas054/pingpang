@@ -1,8 +1,8 @@
 # Player for the sounds.
 class Sound
   def initialize
-    @hit_sample = Gosu::Sample.new('Plopp3.m4a')
-    @miss_sample = Gosu::Sample.new('Miss.m4a')
+    @hit_sample = Gosu::Sample.new('Plopp3.ogg')
+    @miss_sample = Gosu::Sample.new('Miss.ogg')
     @bounce_sample = Gosu::Sample.new('nomail.wav')
   end
 
