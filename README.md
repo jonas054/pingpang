@@ -2,7 +2,7 @@
 
 ## Description
 The classic Pong game implemented in Ruby with the Gosu library. See
-Installation instructions on [The Gisu wiki](https://github.com/gosu/gosu/wiki)
+Installation instructions on [The Gosu wiki](https://github.com/gosu/gosu/wiki)
 for setting up Gosu.
 
 ## Background
