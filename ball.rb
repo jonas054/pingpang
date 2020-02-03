@@ -45,6 +45,6 @@ class Ball < GraphicObject
   end
 
   def total_speed
-    SPEED + @score.total / 5 / @direction.abs
+    (SPEED + @score.total / 5) / @direction.abs
   end
 end
