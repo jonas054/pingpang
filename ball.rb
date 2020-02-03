@@ -13,13 +13,7 @@ class Ball < GraphicObject
     stop
   end
 
-  def bounce_off_top
-    place(x, -y)
-    set_off(@direction.real, -@direction.imag)
-  end
-
-  def bounce_off_bottom
-    place(x, y - @direction.imag * total_speed)
+  def bounce_off_top_or_bottom
     set_off(@direction.real, -@direction.imag)
   end
 
