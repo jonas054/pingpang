@@ -72,7 +72,7 @@ class PongWindow < Gosu::Window
       @ball.bounce_off_top
       @sound.bounce
     elsif @ball.y > height - Ball::HEIGHT
-      @ball.bounce_off_bottom(@ball.total_speed)
+      @ball.bounce_off_bottom
       @sound.bounce
     end
     if passed_right_paddle? || passed_left_paddle?
