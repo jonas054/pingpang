@@ -18,5 +18,5 @@ move and Left Arrow to serve.
 ## Screenshot
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jonas054/pingpang/master/pingpang.png" width="700" alt="Ping Pang Screenshot"/>
+  <img src="https://raw.githubusercontent.com/jonas054/pingpang/master/pingpang.gif" alt="Ping Pang Screenshot"/>
 </p>
