@@ -11,9 +11,9 @@ Chinese word for ping-pong, 乒乓, which is spelled pīng pāng in
 [pinyin](https://en.wikipedia.org/wiki/Pinyin).
 
 ## Game Play
-It's a two player game. The left player uses W and S on the keyboard to move
-the paddle, and D to serve. The right player uses Up Arrow and Down Arrow to
-move and Left Arrow to serve.
+It's a two player game. The left player uses `W` and `S` on the keyboard to move
+the paddle, and `D` to serve. The right player uses `Up Arrow` and `Down Arrow` to
+move and `Left Arrow` to serve.
 
 ## Screenshot
 
