@@ -27,13 +27,15 @@ class Ball < GraphicObject
   end
 
   def hits_right_paddle?(paddle)
-    x >= paddle.x - Ball::WIDTH &&
+    @direction.real >= 0 &&
+      x >= paddle.x - Ball::WIDTH &&
       y >= paddle.y - Ball::HEIGHT &&
       y <= paddle.y + Paddle::HEIGHT
   end
 
   def hits_left_paddle?(paddle)
-    x <= paddle.x + Ball::WIDTH &&
+    @direction.real <= 0 &&
+      x <= paddle.x + Ball::WIDTH &&
       y >= paddle.y - Ball::HEIGHT &&
       y <= paddle.y + Paddle::HEIGHT
   end

@@ -68,7 +68,7 @@ class PongWindow < Gosu::Window
 
   def handle_ball
     @ball.move
-    if @ball.y.negative? || @ball.y > height - Ball::HEIGHT
+    if @ball.y <= 0 || @ball.y >= height - Ball::HEIGHT
       @ball.bounce_off_top_or_bottom
       @sound.bounce
     end
