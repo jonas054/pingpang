@@ -4,9 +4,9 @@ require './graphic_object'
 
 # The ball in play.
 class Ball < GraphicObject
-  WIDTH = 10
-  HEIGHT = 10
-  SPEED = 6
+  WIDTH = 15
+  HEIGHT = WIDTH
+  SPEED = 9
 
   def initialize(score)
     super(score)

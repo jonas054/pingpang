@@ -7,7 +7,7 @@ require './ball'
 class Paddle < GraphicObject
   WIDTH = Ball::WIDTH
   HEIGHT = 5 * Ball::HEIGHT
-  SPEED = 5
+  SPEED = 6
 
   def initialize(score)
     super(score)
