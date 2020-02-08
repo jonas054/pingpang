@@ -2,7 +2,7 @@
 
 # Keeping the scores and displaying them.
 class Score
-  FONT_SIZE = 40
+  FONT_SIZE = 60
   FONT_WIDTH = FONT_SIZE / 2.3
 
   def initialize(window)
