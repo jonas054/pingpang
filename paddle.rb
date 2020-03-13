@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 require './graphic_object'
-require './ball'
 
 # Either of the two paddles.
 class Paddle < GraphicObject
-  WIDTH = Ball::WIDTH
-  HEIGHT = 5 * Ball::HEIGHT
+  WIDTH = BASE_SIZE * 3
+  HEIGHT = 5 * WIDTH
   SPEED = 6
 
   def initialize(score)

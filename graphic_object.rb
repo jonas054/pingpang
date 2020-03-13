@@ -2,6 +2,8 @@
 
 # Base class for movable objects.
 class GraphicObject
+  BASE_SIZE = 5
+
   def initialize(score)
     @score = score
   end

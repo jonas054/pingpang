@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'gosu'
+
 # Keeping the scores and displaying them.
 class Score
   FONT_SIZE = 60

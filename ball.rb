@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require './graphic_object'
+require './paddle'
 
 # The ball in play.
 class Ball < GraphicObject
-  WIDTH = 15
+  WIDTH = BASE_SIZE * 3
   HEIGHT = WIDTH
   SPEED = 9
 
