@@ -50,11 +50,11 @@ class PongWindow < Gosu::Window
   end
 
   def draw
+    draw_rect(width / 2 - 1, 0, 2, height, Gosu::Color::WHITE) # The net
     @score.display
     @ball.display(self, Gosu::Color::GREEN)
     @left_paddle.display(self, Gosu::Color::WHITE)
     @right_paddle.display(self, Gosu::Color::WHITE)
-    draw_rect(width / 2, 0, 2, height, Gosu::Color::WHITE)
   end
 
   private
