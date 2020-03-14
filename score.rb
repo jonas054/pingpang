@@ -7,9 +7,9 @@ class Score
   FONT_SIZE = 60
   FONT_WIDTH = FONT_SIZE / 2.3
 
-  def initialize(window)
+  def initialize(window, font)
     @left_score = @right_score = 0
-    @font = Gosu::Font.new(window, 'Arial', FONT_SIZE)
+    @font = font
     @window = window
   end
 

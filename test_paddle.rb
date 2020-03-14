@@ -4,7 +4,9 @@ require './score'
 
 class TestPaddle < Test::Unit::TestCase
   def setup
-    @score = Score.new(Gosu::Window.new(100, 100))
+    window = Gosu::Window.new(100, 100)
+    @score = Score.new(window,
+                       Gosu::Font.new(window, 'Arial', Score::FONT_SIZE))
     @paddle = Paddle.new(@score)
   end
 

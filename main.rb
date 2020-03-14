@@ -16,7 +16,7 @@ class PongWindow < Gosu::Window
   def initialize
     super(1500, 800, fullscreen: false)
     @left_to_serve = rand > 0.5
-    @score = Score.new(self)
+    @score = Score.new(self, Gosu::Font.new(self, 'Arial', Score::FONT_SIZE))
     @ball = Ball.new(@score)
     @left_paddle = Paddle.new(@score)
     @right_paddle = Paddle.new(@score)
