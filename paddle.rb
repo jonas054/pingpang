@@ -15,4 +15,8 @@ class Paddle < GraphicObject
   def total_speed
     SPEED + @score.total / 10
   end
+
+  def move_towards_ball(ball)
+    set_off(0, (ball.y + Ball::HEIGHT / 2 - y - HEIGHT / 2) / 60.0)
+  end
 end

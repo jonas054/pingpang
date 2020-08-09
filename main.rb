@@ -13,7 +13,7 @@ require './sound'
 # The right player uses UpArrow for up, DownArrow for down, and
 # LeftArrow to serve.
 class PongWindow < Gosu::Window
-  def initialize
+  def initialize(is_against_bot)
     super(1500, 800, fullscreen: false)
     @left_to_serve = rand > 0.5
     @score = Score.new(self, Gosu::Font.new(self, 'Arial', Score::FONT_SIZE))
@@ -21,17 +21,22 @@ class PongWindow < Gosu::Window
     @left_paddle = Paddle.new(@score)
     @right_paddle = Paddle.new(@score)
     @sound = Sound.new
+    @is_against_bot = is_against_bot
     start
   end
 
   def button_down(id)
+    unless @is_against_bot
+      case id
+      when Gosu::KB_DOWN then @right_paddle.set_off(0, 1)
+      when Gosu::KB_UP   then @right_paddle.set_off(0, -1)
+      when Gosu::KB_LEFT then serve_if_appropriate(-1, !@left_to_serve)
+      end
+    end
     case id
-    when Gosu::KB_DOWN then @right_paddle.set_off(0, 1)
-    when Gosu::KB_UP   then @right_paddle.set_off(0, -1)
-    when Gosu::KB_LEFT then serve_if_appropriate(-1, !@left_to_serve)
-    when Gosu::KB_S    then @left_paddle.set_off(0, 1)
-    when Gosu::KB_W    then @left_paddle.set_off(0, -1)
-    when Gosu::KB_D    then serve_if_appropriate(1, @left_to_serve)
+    when Gosu::KB_S then @left_paddle.set_off(0, 1)
+    when Gosu::KB_W then @left_paddle.set_off(0, -1)
+    when Gosu::KB_D then serve_if_appropriate(1, @left_to_serve)
     end
   end
 
@@ -43,6 +48,13 @@ class PongWindow < Gosu::Window
   end
 
   def update
+    if @is_against_bot
+      if !@left_to_serve && @ball.not_served_yet?
+        serve_if_appropriate(-1, true)
+      else
+        @right_paddle.move_towards_ball(@ball)
+      end
+    end
     return if @ball.not_served_yet?
 
     [@left_paddle, @right_paddle].each(&:move)
@@ -120,4 +132,4 @@ class PongWindow < Gosu::Window
   end
 end
 
-PongWindow.new.show
+PongWindow.new(ARGV.include?('-b')).show
