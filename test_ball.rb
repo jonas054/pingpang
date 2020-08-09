@@ -54,6 +54,7 @@ class TestBall < Test::Unit::TestCase
   def test_hits_right_paddle
     paddle = Paddle.new(@score)
     @ball.place(3, 5)
+    @ball.set_off(1, 0)
     paddle.place(3, 5)
     assert @ball.hits_right_paddle?(paddle)
   end
@@ -61,6 +62,7 @@ class TestBall < Test::Unit::TestCase
   def test_hits_left_paddle
     paddle = Paddle.new(@score)
     @ball.place(3, 5)
+    @ball.set_off(-1, 0)
     paddle.place(3, 5)
     assert @ball.hits_left_paddle?(paddle)
   end

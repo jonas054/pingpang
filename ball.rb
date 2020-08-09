@@ -28,20 +28,22 @@ class Ball < GraphicObject
   end
 
   def hits_right_paddle?(paddle)
-    @direction.real >= 0 &&
-      x >= paddle.x - Ball::WIDTH &&
-      y >= paddle.y - Ball::HEIGHT &&
-      y <= paddle.y + Paddle::HEIGHT
+    @direction.real > 0 && x >= paddle.x - Ball::WIDTH &&
+      right_height?(y, paddle)
   end
 
   def hits_left_paddle?(paddle)
-    @direction.real <= 0 &&
-      x <= paddle.x + Ball::WIDTH &&
-      y >= paddle.y - Ball::HEIGHT &&
-      y <= paddle.y + Paddle::HEIGHT
+    @direction.real < 0 && x <= paddle.x + Paddle::WIDTH &&
+      right_height?(y, paddle)
   end
 
   def total_speed
     (SPEED + @score.total / 5) / @direction.abs
+  end
+
+  private
+
+  def right_height?(y, paddle)
+    y >= paddle.y - Ball::HEIGHT && y <= paddle.y + Paddle::HEIGHT
   end
 end
