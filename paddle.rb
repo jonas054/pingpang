@@ -8,10 +8,6 @@ class Paddle < GraphicObject
   HEIGHT = 5 * WIDTH
   SPEED = 6
 
-  def initialize(score)
-    super(score)
-  end
-
   def total_speed
     SPEED + @score.total / 10
   end

@@ -2,3 +2,18 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   NewCops: enable
+
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - y
+    - id
+
+Style/Documentation:
+  Exclude:
+    - 'test*.rb'
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison

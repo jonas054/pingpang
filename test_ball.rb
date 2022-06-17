@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require './ball'
 require './score'
@@ -33,7 +35,7 @@ class TestBall < Test::Unit::TestCase
     @ball.move
 
     assert_equal 7, @ball.x.round
-    assert_equal -3, @ball.y.round
+    assert_equal(-3, @ball.y.round)
   end
 
   def test_bounce_off_paddle
@@ -47,7 +49,7 @@ class TestBall < Test::Unit::TestCase
     @ball.bounce_off_paddle(5)
     @ball.move
 
-    assert_equal -2, @ball.x.round
+    assert_equal(-2, @ball.x.round)
     assert_equal 12, @ball.y.round
   end
 
