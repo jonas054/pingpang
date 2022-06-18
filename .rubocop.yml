@@ -6,6 +6,10 @@ AllCops:
 Lint/AmbiguousOperatorPrecedence:
   Enabled: false
 
+Metrics/AbcSize:
+  IgnoredMethods:
+    - test_display
+
 Naming/MethodParameterName:
   AllowedNames:
     - y

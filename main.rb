@@ -86,8 +86,7 @@ class PongWindow < Gosu::Window
     end
     if passed_right_paddle? || passed_left_paddle?
       handle_win
-    elsif @ball.hits_right_paddle?(@right_paddle) ||
-          @ball.hits_left_paddle?(@left_paddle)
+    elsif @ball.hits_right_paddle?(@right_paddle) || @ball.hits_left_paddle?(@left_paddle)
       handle_paddle_hit
     end
   end
@@ -100,8 +99,7 @@ class PongWindow < Gosu::Window
   end
 
   def handle_paddle_hit
-    paddle_pos =
-      @ball.hits_right_paddle?(@right_paddle) ? @right_paddle.y : @left_paddle.y
+    paddle_pos = @ball.hits_right_paddle?(@right_paddle) ? @right_paddle.y : @left_paddle.y
     @ball.bounce_off_paddle(paddle_pos)
     @sound.hit
   end
@@ -116,9 +114,7 @@ class PongWindow < Gosu::Window
 
   def start
     ball_y = rand(height - Ball::HEIGHT)
-    random_paddle_y = rand(height - Ball::HEIGHT)
     next_to_ball_y = ball_y - 2 * Ball::HEIGHT
-    right_paddle_x = width - 2 * Ball::WIDTH
     if @left_to_serve
       @ball.place(3 * Ball::WIDTH, ball_y)
       @left_paddle.place(Ball::WIDTH, next_to_ball_y)
@@ -129,6 +125,14 @@ class PongWindow < Gosu::Window
       @right_paddle.place(right_paddle_x, next_to_ball_y)
     end
     [@ball, @left_paddle, @right_paddle].each(&:stop)
+  end
+
+  def random_paddle_y
+    rand(height - Ball::HEIGHT)
+  end
+
+  def right_paddle_x
+    width - 2 * Ball::WIDTH
   end
 end
 
