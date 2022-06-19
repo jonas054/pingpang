@@ -34,3 +34,7 @@ player mode, in which case the bot moves the right paddle.
 <p align="center">
   <img src="https://raw.githubusercontent.com/jonas054/pingpang/master/pingpang.gif" alt="Ping Pang Screenshot"/>
 </p>
+
+## Requirements
+
+Ruby 3.0 or later.

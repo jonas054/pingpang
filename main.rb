@@ -65,8 +65,7 @@ class PongWindow < Gosu::Window
     draw_rect(width / 2 - 1, 0, 2, height, Gosu::Color::WHITE) # The net
     @score.display
     @ball.display(self, Gosu::Color::GREEN)
-    @left_paddle.display(self, Gosu::Color::WHITE)
-    @right_paddle.display(self, Gosu::Color::WHITE)
+    [@left_paddle, @right_paddle].each { _1.display(self, Gosu::Color::WHITE) }
   end
 
   private
@@ -99,18 +98,14 @@ class PongWindow < Gosu::Window
   end
 
   def handle_paddle_hit
-    paddle_pos = @ball.hits_right_paddle?(@right_paddle) ? @right_paddle.y : @left_paddle.y
+    paddle_pos =
+      @ball.hits_right_paddle?(@right_paddle) ? @right_paddle.y : @left_paddle.y
     @ball.bounce_off_paddle(paddle_pos)
     @sound.hit
   end
 
-  def passed_right_paddle?
-    @ball.x > @right_paddle.x + Ball::WIDTH
-  end
-
-  def passed_left_paddle?
-    @ball.x < @left_paddle.x - Ball::WIDTH
-  end
+  def passed_right_paddle? = @ball.x > @right_paddle.x + Ball::WIDTH
+  def passed_left_paddle? = @ball.x < @left_paddle.x - Ball::WIDTH
 
   def start
     ball_y = rand(height - Ball::HEIGHT)
@@ -127,13 +122,8 @@ class PongWindow < Gosu::Window
     [@ball, @left_paddle, @right_paddle].each(&:stop)
   end
 
-  def random_paddle_y
-    rand(height - Ball::HEIGHT)
-  end
-
-  def right_paddle_x
-    width - 2 * Ball::WIDTH
-  end
+  def random_paddle_y = rand(height - Ball::HEIGHT)
+  def right_paddle_x = width - 2 * Ball::WIDTH
 end
 
 PongWindow.new(ARGV.include?('-b')).show
