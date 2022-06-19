@@ -6,7 +6,9 @@ require './score'
 class MyFont
   attr_reader :args
 
-  def draw_text(text, x_pos, y_pos, a, b, c, color) # rubocop:disable Naming/MethodParameterName
+  def draw_text(text, x_pos, y_pos, # rubocop:disable Metrics/ParameterLists
+                a, b, c, # rubocop:disable Naming/MethodParameterName
+                color)
     @args ||= []
     @args << [text, x_pos, y_pos, a, b, c, color]
   end
