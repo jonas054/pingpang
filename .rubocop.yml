@@ -13,7 +13,6 @@ Metrics/AbcSize:
 Naming/MethodParameterName:
   AllowedNames:
     - y
-    - id
 
 Style/Documentation:
   Exclude:

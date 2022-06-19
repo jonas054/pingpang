@@ -25,23 +25,23 @@ class PongWindow < Gosu::Window
     start
   end
 
-  def button_down(id)
+  def button_down(key_id)
     unless @is_against_bot
-      case id
+      case key_id
       when Gosu::KB_DOWN then @right_paddle.set_off(0, 1)
       when Gosu::KB_UP   then @right_paddle.set_off(0, -1)
       when Gosu::KB_LEFT then serve_if_appropriate(-1, !@left_to_serve)
       end
     end
-    case id
+    case key_id
     when Gosu::KB_S then @left_paddle.set_off(0, 1)
     when Gosu::KB_W then @left_paddle.set_off(0, -1)
     when Gosu::KB_D then serve_if_appropriate(1, @left_to_serve)
     end
   end
 
-  def button_up(id)
-    case id
+  def button_up(key_id)
+    case key_id
     when Gosu::KB_DOWN, Gosu::KB_UP then @right_paddle.stop
     when Gosu::KB_W,    Gosu::KB_S  then @left_paddle.stop
     end
