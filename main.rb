@@ -111,19 +111,20 @@ class PongWindow < Gosu::Window
     ball_y = rand(height - Ball::HEIGHT)
     next_to_ball_y = ball_y - 2 * Ball::HEIGHT
     if @left_to_serve
-      @ball.place(3 * Ball::WIDTH, ball_y)
-      @left_paddle.place(Ball::WIDTH, next_to_ball_y)
-      @right_paddle.place(right_paddle_x, random_paddle_y)
+      place(3 * Ball::WIDTH, ball_y, next_to_ball_y, random_paddle_y)
     else
-      @ball.place(width - 4 * Ball::WIDTH, ball_y)
-      @left_paddle.place(Ball::WIDTH, random_paddle_y)
-      @right_paddle.place(right_paddle_x, next_to_ball_y)
+      place(width - 4 * Ball::WIDTH, ball_y, random_paddle_y, next_to_ball_y)
     end
     [@ball, @left_paddle, @right_paddle].each(&:stop)
   end
 
+  def place(ball_x, ball_y, left_paddle_y, right_paddle_y)
+    @ball.place(ball_x, ball_y)
+    @left_paddle.place(Ball::WIDTH, left_paddle_y)
+    @right_paddle.place(width - 2 * Ball::WIDTH, right_paddle_y)
+  end
+
   def random_paddle_y = rand(height - Ball::HEIGHT)
-  def right_paddle_x = width - 2 * Ball::WIDTH
 end
 
 PongWindow.new(ARGV.include?('-b')).show
