@@ -32,9 +32,7 @@ class Score
     draw_text(@right_score, middle + FONT_WIDTH, 10)
   end
 
-  private
-
-  def draw_text(text, x_pos, y_pos)
+  private def draw_text(text, x_pos, y_pos)
     @font.draw_text(text, x_pos, y_pos, 0, 1, 1, Gosu::Color::GREEN)
   end
 end

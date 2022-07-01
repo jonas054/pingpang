@@ -31,11 +31,9 @@ class Ball < GraphicObject
     @direction.real < 0 && x <= paddle.x + Paddle::WIDTH && right_height?(y, paddle)
   end
 
-  def total_speed = (SPEED + @score.total / 5) / @direction.abs
-
-  private
-
-  def right_height?(y, paddle)
+  private def right_height?(y, paddle)
     y >= paddle.y - Ball::HEIGHT && y <= paddle.y + Paddle::HEIGHT
   end
+
+  def total_speed = (SPEED + @score.total / 5) / @direction.abs
 end

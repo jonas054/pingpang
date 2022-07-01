@@ -28,9 +28,7 @@ class Help
               y + (Paddle::HEIGHT - @font.height) / 2, Gosu::Color::GREEN)
   end
 
-  private
-
-  def draw_text(text, x_pos, y_pos, color)
+  private def draw_text(text, x_pos, y_pos, color)
     @font.draw_text(text, x_pos, y_pos, 0, 1, 1, color)
   end
 end
