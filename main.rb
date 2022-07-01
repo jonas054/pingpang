@@ -29,10 +29,10 @@ class PongWindow < Gosu::Window
 
   def button_down(key_id)
     unless @is_against_bot
-      button_down_for_one_player(key_id, @right_paddle, !@left_to_serve,
+      button_down_for_one_player(key_id, @right_paddle, !@left_to_serve, -1,
                                  [Gosu::KB_DOWN, Gosu::KB_UP, Gosu::KB_LEFT])
     end
-    button_down_for_one_player(key_id, @left_paddle, @left_to_serve,
+    button_down_for_one_player(key_id, @left_paddle, @left_to_serve, 1,
                                [Gosu::KB_S, Gosu::KB_W, Gosu::KB_D])
   end
 
@@ -69,12 +69,12 @@ class PongWindow < Gosu::Window
 
   def font(scale) = Gosu::Font.new(self, 'Arial', Score::FONT_SIZE / scale)
 
-  def button_down_for_one_player(key_id, paddle, can_serve, keys)
+  def button_down_for_one_player(key_id, paddle, can_serve, serve_direction, keys)
     down, up, serve = keys
     case key_id
     when down then paddle.set_off(0, 1)
     when up   then paddle.set_off(0, -1)
-    when serve then serve_if_appropriate(-1, can_serve)
+    when serve then serve_if_appropriate(serve_direction, can_serve)
     end
   end
 
