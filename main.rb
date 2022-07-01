@@ -27,17 +27,11 @@ class PongWindow < Gosu::Window
 
   def button_down(key_id)
     unless @is_against_bot
-      case key_id
-      when Gosu::KB_DOWN then @right_paddle.set_off(0, 1)
-      when Gosu::KB_UP   then @right_paddle.set_off(0, -1)
-      when Gosu::KB_LEFT then serve_if_appropriate(-1, !@left_to_serve)
-      end
+      button_down_for_one_player(key_id, @right_paddle, !@left_to_serve,
+                                 [Gosu::KB_DOWN, Gosu::KB_UP, Gosu::KB_LEFT])
     end
-    case key_id
-    when Gosu::KB_S then @left_paddle.set_off(0, 1)
-    when Gosu::KB_W then @left_paddle.set_off(0, -1)
-    when Gosu::KB_D then serve_if_appropriate(1, @left_to_serve)
-    end
+    button_down_for_one_player(key_id, @left_paddle, @left_to_serve,
+                               [Gosu::KB_S, Gosu::KB_W, Gosu::KB_D])
   end
 
   def button_up(key_id)
@@ -69,6 +63,15 @@ class PongWindow < Gosu::Window
   end
 
   private
+
+  def button_down_for_one_player(key_id, paddle, can_serve, keys)
+    down, up, serve = keys
+    case key_id
+    when down then paddle.set_off(0, 1)
+    when up   then paddle.set_off(0, -1)
+    when serve then serve_if_appropriate(-1, can_serve)
+    end
+  end
 
   def serve_if_appropriate(direction, condition)
     return unless @ball.not_served_yet? && condition
