@@ -2,6 +2,7 @@
 
 require 'gosu'
 require './ball'
+require './help'
 require './paddle'
 require './score'
 require './sound'
@@ -15,13 +16,14 @@ require './sound'
 class PongWindow < Gosu::Window
   def initialize(is_against_bot)
     super(1500, 800, fullscreen: false)
-    @left_to_serve = rand > 0.5
-    @score = Score.new(self, Gosu::Font.new(self, 'Arial', Score::FONT_SIZE))
+    @is_against_bot = is_against_bot
+    @left_to_serve = @is_against_bot || rand > 0.5
+    @score = Score.new(self, font(1))
     @ball = Ball.new(@score)
     @left_paddle = Paddle.new(@score)
     @right_paddle = Paddle.new(@score)
     @sound = Sound.new
-    @is_against_bot = is_against_bot
+    @help = Help.new(font(2), @is_against_bot, @left_paddle, @right_paddle)
     start
   end
 
@@ -58,11 +60,14 @@ class PongWindow < Gosu::Window
   def draw
     draw_rect(width / 2 - 1, 0, 2, height, Gosu::Color::WHITE) # The net
     @score.display
+    @help.display(@left_to_serve) if @ball.not_served_yet? && @score.total < 2
     @ball.display(self, Gosu::Color::GREEN)
     [@left_paddle, @right_paddle].each { _1.display(self, Gosu::Color::WHITE) }
   end
 
   private
+
+  def font(scale) = Gosu::Font.new(self, 'Arial', Score::FONT_SIZE / scale)
 
   def button_down_for_one_player(key_id, paddle, can_serve, keys)
     down, up, serve = keys
