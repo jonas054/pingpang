@@ -106,9 +106,8 @@ class PongWindow < Gosu::Window
   end
 
   def handle_paddle_hit
-    paddle_pos =
-      @ball.hits_right_paddle?(@right_paddle) ? @right_paddle.y : @left_paddle.y
-    @ball.bounce_off_paddle(paddle_pos)
+    paddle = @ball.hits_right_paddle?(@right_paddle) ? @right_paddle : @left_paddle
+    @ball.bounce_off_paddle(paddle.y)
     @sound.hit
   end
 
