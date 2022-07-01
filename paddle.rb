@@ -15,4 +15,8 @@ class Paddle < GraphicObject
   def move_towards_ball(ball)
     set_off(0, (ball.y + Ball::HEIGHT / 2 - y - HEIGHT / 2) / 60.0)
   end
+
+  def self.random_y_pos(height)
+    Ball::HEIGHT + rand(height - HEIGHT - 2 * Ball::HEIGHT)
+  end
 end

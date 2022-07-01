@@ -107,6 +107,7 @@ class PongWindow < Gosu::Window
   private def start
     ball_y = Paddle::HEIGHT + rand(height - 2 * Paddle::HEIGHT)
     next_to_ball_y = ball_y - 2 * Ball::HEIGHT
+    random_paddle_y = Paddle.random_y_pos(height)
     if @left_to_serve
       place(3 * Ball::WIDTH, ball_y, next_to_ball_y, random_paddle_y)
     else
@@ -120,8 +121,6 @@ class PongWindow < Gosu::Window
     @left_paddle.place(Ball::WIDTH, left_paddle_y)
     @right_paddle.place(width - 2 * Ball::WIDTH, right_paddle_y)
   end
-
-  def random_paddle_y = Ball::HEIGHT + rand(height - Paddle::HEIGHT - 2 * Ball::HEIGHT)
 
   def draw
     draw_rect(width / 2 - 1, 0, 2, height, Gosu::Color::WHITE) # The net
