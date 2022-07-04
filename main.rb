@@ -20,10 +20,9 @@ class PongWindow < Gosu::Window
     @left_to_serve = @is_against_bot || rand > 0.5
     @score = Score.new(self, font(1))
     @ball = Ball.new(@score)
-    @left_paddle = Paddle.new(@score)
-    @right_paddle = Paddle.new(@score)
+    @paddles = Array.new(2) { Paddle.new(@score) }
     @sound = Sound.new
-    @help = Help.new(font(2), @is_against_bot, @left_paddle, @right_paddle)
+    @help = Help.new(font(2), @is_against_bot, *@paddles)
     start
   end
 
@@ -31,10 +30,10 @@ class PongWindow < Gosu::Window
 
   def button_down(key_id)
     unless @is_against_bot
-      button_down_for_one_player(key_id, @right_paddle, !@left_to_serve, -1,
+      button_down_for_one_player(key_id, @paddles[1], !@left_to_serve, -1,
                                  [Gosu::KB_DOWN, Gosu::KB_UP, Gosu::KB_LEFT])
     end
-    button_down_for_one_player(key_id, @left_paddle, @left_to_serve, 1,
+    button_down_for_one_player(key_id, @paddles[0], @left_to_serve, 1,
                                [Gosu::KB_S, Gosu::KB_W, Gosu::KB_D])
   end
 
@@ -49,8 +48,8 @@ class PongWindow < Gosu::Window
 
   def button_up(key_id)
     case key_id
-    when Gosu::KB_DOWN, Gosu::KB_UP then @right_paddle.stop
-    when Gosu::KB_W,    Gosu::KB_S  then @left_paddle.stop
+    when Gosu::KB_DOWN, Gosu::KB_UP then @paddles[1].stop
+    when Gosu::KB_W,    Gosu::KB_S  then @paddles[0].stop
     end
   end
 
@@ -59,12 +58,12 @@ class PongWindow < Gosu::Window
       if !@left_to_serve && @ball.not_served_yet?
         serve_if_appropriate(-1, true)
       else
-        @right_paddle.move_towards_ball(@ball)
+        @paddles[1].move_towards_ball(@ball)
       end
     end
     return if @ball.not_served_yet?
 
-    [@left_paddle, @right_paddle].each(&:move)
+    @paddles.each(&:move)
     handle_ball
   end
 
@@ -83,7 +82,7 @@ class PongWindow < Gosu::Window
     end
     if passed_right_paddle? || passed_left_paddle?
       handle_win
-    elsif @ball.hits_right_paddle?(@right_paddle) || @ball.hits_left_paddle?(@left_paddle)
+    elsif @ball.hits_right_paddle?(@paddles[1]) || @ball.hits_left_paddle?(@paddles[0])
       handle_paddle_hit
     end
   end
@@ -95,11 +94,11 @@ class PongWindow < Gosu::Window
     start
   end
 
-  private def passed_right_paddle? = @ball.x > @right_paddle.x + Ball::WIDTH
-  private def passed_left_paddle? = @ball.x < @left_paddle.x - Ball::WIDTH
+  private def passed_right_paddle? = @ball.x > @paddles[1].x + Ball::WIDTH
+  private def passed_left_paddle? = @ball.x < @paddles[0].x - Ball::WIDTH
 
   private def handle_paddle_hit
-    paddle = @ball.hits_right_paddle?(@right_paddle) ? @right_paddle : @left_paddle
+    paddle = @ball.hits_right_paddle?(@paddles[1]) ? @paddles[1] : @paddles[0]
     @ball.bounce_off_paddle(paddle.y)
     @sound.hit
   end
@@ -113,13 +112,13 @@ class PongWindow < Gosu::Window
     else
       place(width - 4 * Ball::WIDTH, ball_y, random_paddle_y, next_to_ball_y)
     end
-    [@ball, @left_paddle, @right_paddle].each(&:stop)
+    [@ball, *@paddles].each(&:stop)
   end
 
   private def place(ball_x, ball_y, left_paddle_y, right_paddle_y)
     @ball.place(ball_x, ball_y)
-    @left_paddle.place(Ball::WIDTH, left_paddle_y)
-    @right_paddle.place(width - 2 * Ball::WIDTH, right_paddle_y)
+    @paddles[0].place(Ball::WIDTH, left_paddle_y)
+    @paddles[1].place(width - 2 * Ball::WIDTH, right_paddle_y)
   end
 
   def draw
@@ -127,7 +126,7 @@ class PongWindow < Gosu::Window
     @score.display
     @help.display(@left_to_serve) if @ball.not_served_yet? && @score.total < 2
     @ball.display(self, Gosu::Color::GREEN)
-    [@left_paddle, @right_paddle].each { _1.display(self, Gosu::Color::WHITE) }
+    @paddles.each { _1.display(self, Gosu::Color::WHITE) }
   end
 end
 
