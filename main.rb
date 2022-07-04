@@ -63,7 +63,7 @@ class PongWindow < Gosu::Window
     end
     return if @ball.not_served_yet?
 
-    @paddles.each(&:move)
+    [*@paddles, @ball].each(&:move)
     handle_ball
   end
 
@@ -75,32 +75,16 @@ class PongWindow < Gosu::Window
   end
 
   private def handle_ball
-    @ball.move
-    if @ball.y <= 0 || @ball.y >= height - Ball::HEIGHT
-      @ball.bounce_off_top_or_bottom
+    if @ball.passed_paddle?(@paddles)
+      @score.increment(@ball.x > width / 2 ? :left : :right)
+      @left_to_serve = !@left_to_serve
+      @sound.miss
+      start
+    elsif @ball.check_paddle_hit(@paddles)
+      @sound.hit
+    elsif @ball.check_top_or_bottom_hit(height)
       @sound.bounce
     end
-    if passed_right_paddle? || passed_left_paddle?
-      handle_win
-    elsif @ball.hits_right_paddle?(@paddles[1]) || @ball.hits_left_paddle?(@paddles[0])
-      handle_paddle_hit
-    end
-  end
-
-  private def handle_win
-    @score.increment(passed_right_paddle? ? :left : :right)
-    @left_to_serve = !@left_to_serve
-    @sound.miss
-    start
-  end
-
-  private def passed_right_paddle? = @ball.x > @paddles[1].x + Ball::WIDTH
-  private def passed_left_paddle? = @ball.x < @paddles[0].x - Ball::WIDTH
-
-  private def handle_paddle_hit
-    paddle = @ball.hits_right_paddle?(@paddles[1]) ? @paddles[1] : @paddles[0]
-    @ball.bounce_off_paddle(paddle.y)
-    @sound.hit
   end
 
   private def start
