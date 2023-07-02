@@ -46,15 +46,15 @@ class Ball < GraphicObject
   def not_served_yet? = @direction == 0 + 0i
 
   def hits_right_paddle?(paddle)
-    @direction.real > 0 && x >= paddle.x - WIDTH && right_height?(y, paddle)
+    @direction.real > 0 && x >= paddle.x - WIDTH && right_height?(paddle.y)
   end
 
   def hits_left_paddle?(paddle)
-    @direction.real < 0 && x <= paddle.x + Paddle::WIDTH && right_height?(y, paddle)
+    @direction.real < 0 && x <= paddle.x + Paddle::WIDTH && right_height?(paddle.y)
   end
 
-  private def right_height?(y, paddle)
-    y >= paddle.y - HEIGHT && y <= paddle.y + Paddle::HEIGHT
+  private def right_height?(paddle_y)
+    y >= paddle_y - HEIGHT && y <= paddle_y + Paddle::HEIGHT
   end
 
   def total_speed = (SPEED + @score.total / 5) / @direction.abs

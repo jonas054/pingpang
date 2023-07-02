@@ -14,10 +14,6 @@ Metrics/AbcSize:
   AllowedMethods:
     - test_display
 
-Naming/MethodParameterName:
-  AllowedNames:
-    - y
-
 Style/Documentation:
   Exclude:
     - 'test*.rb'
