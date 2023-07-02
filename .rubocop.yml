@@ -11,7 +11,7 @@ Lint/AmbiguousOperatorPrecedence:
   Enabled: false
 
 Metrics/AbcSize:
-  IgnoredMethods:
+  AllowedMethods:
     - test_display
 
 Naming/MethodParameterName:
