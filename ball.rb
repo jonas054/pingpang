@@ -26,12 +26,12 @@ class Ball < GraphicObject
   def bounce_off_top_or_bottom = set_off(@direction.real, -@direction.imag)
 
   # If a hit is detected, bounces the ball off the paddle and returns true.
-  def check_paddle_hit(paddles)
-    if hits_left_paddle?(paddles[0])
-      bounce_off_paddle(paddles[0].y)
+  def check_paddle_hit(left_paddle, right_paddle)
+    if hits_left_paddle?(left_paddle)
+      bounce_off_paddle(left_paddle.y)
       true
-    elsif hits_right_paddle?(paddles[1])
-      bounce_off_paddle(paddles[1].y)
+    elsif hits_right_paddle?(right_paddle)
+      bounce_off_paddle(right_paddle.y)
       true
     else
       false
@@ -59,7 +59,7 @@ class Ball < GraphicObject
 
   def total_speed = (SPEED + @score.total / 5) / @direction.abs
 
-  def passed_paddle?(paddles)
-    @direction.real > 0 ? x > paddles[1].x + WIDTH : x < paddles[0].x - WIDTH
+  def passed_paddle?(left_paddle, right_paddle)
+    @direction.real > 0 ? x > right_paddle.x + WIDTH : x < left_paddle.x - WIDTH
   end
 end
